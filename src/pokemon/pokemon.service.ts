@@ -94,7 +94,12 @@ export class PokemonService {
 
   }
 
-  remove(id: string) {
-    return id;
+  async remove(id: string) {
+    const result= await this.pokemonModel.deleteOne({_id: id});
+   if (result.deletedCount===0){
+    throw new BadRequestException(`Pokemon with id "${id}" not found`);
+    
+   }
+    return;
 }
 }
